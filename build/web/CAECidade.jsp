@@ -1,7 +1,7 @@
 <%@page import="modelo.Cidade"%>
 <%@page import="modelo.DAOCidade"%>
 <%
-String nome = request.getParameter("nomeCidade");
+String  nome = request.getParameter("nomeCidade");
 String uf = request.getParameter("ufCidade");
 String mensagem="";
 
