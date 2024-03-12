@@ -7,7 +7,7 @@ String mensagem="";
 
 Cidade objCidade = new Cidade();
 objCidade.setNomeCidade(nome);
-objCidade.setUfCifade(uf);
+ objCidade.setUfCifade(uf);
 
 
 DAOCidade objDAOCidade = new DAOCidade();
