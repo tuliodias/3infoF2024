@@ -3,6 +3,9 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.util.List;
+import modelo.Cidade;
+import modelo.DAOCidade;
 
 public final class CadastroCidade_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -10,6 +13,11 @@ public final class CadastroCidade_jsp extends org.apache.jasper.runtime.HttpJspB
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
 
   private static java.util.List<String> _jspx_dependants;
+
+  static {
+    _jspx_dependants = new java.util.ArrayList<String>(1);
+    _jspx_dependants.add("/ListarCidade.jsp");
+  }
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
@@ -43,7 +51,17 @@ public final class CadastroCidade_jsp extends org.apache.jasper.runtime.HttpJspB
 
       out.write('\n');
 
-String nome="Denise";
+    String nomeCidade = request.getParameter("nomeCidade");// vem do ListarCidade.jsp
+    String ufCidade = request.getParameter("ufCidade");
+    String codigoCidade = request.getParameter("codigoCidade");
+    String opcao = request.getParameter("opcao");
+    String mensagem = request.getParameter("mensagem");// vem do CAECidade
+    if (opcao == null) {
+        opcao = "cadastrar";
+    }
+    if (codigoCidade == null) {
+        codigoCidade = "0";
+    }
 
 
       out.write("\n");
@@ -58,20 +76,108 @@ String nome="Denise";
       out.write("    <body>\n");
       out.write("        <h1>Cadastro Cidade</h1>\n");
       out.write("        <form name=\"cadastro\" method=\"get\" action=\"CAECidade.jsp\">\n");
-      out.write("          \n");
+      out.write("\n");
       out.write("            <p>  \n");
       out.write("                <label>Cidade:</label>\n");
-      out.write("                <input type=\"text\" name=\"nomeCidade\" value=\"\" size=\"40\" />\n");
+      out.write("                <input type=\"text\" name=\"nomeCidade\" value=\"");
+      out.print( (nomeCidade == null) ? "" : nomeCidade);
+      out.write("\" size=\"40\" />\n");
       out.write("            </p>\n");
       out.write("            <p>  \n");
       out.write("                <label>UF:</label>\n");
-      out.write("                <input type=\"text\" name=\"ufCidade\" value=\"\" size=\"5\" />\n");
+      out.write("                <input type=\"text\" name=\"ufCidade\" value=\"");
+      out.print( (ufCidade == null) ? "" : ufCidade);
+      out.write("\" size=\"5\" />\n");
       out.write("            </p>\n");
+      out.write("            ");
+if (opcao.equals("cadastrar")) {
+      out.write("\n");
       out.write("            <input type=\"submit\" value=\"Cadastrar\" name=\"Cadastrar\" />\n");
+      out.write("            ");
+ }
+      out.write("\n");
+      out.write("            ");
+if (opcao.equals("alterar")) {
+      out.write("\n");
+      out.write("            <input type=\"submit\" value=\"Alterar\" name=\"Alterar\" />\n");
+      out.write("            ");
+ }
+      out.write("\n");
+      out.write("            ");
+if (opcao.equals("excluir")) {
+      out.write("\n");
+      out.write("            <input type=\"submit\" value=\"Excluir\" name=\"Excluir\" />\n");
+      out.write("            ");
+ }
+      out.write("\n");
+      out.write("            <input type=\"hidden\" name=\"codigoCidade\" value=\"");
+      out.print( codigoCidade);
+      out.write("\">\n");
+      out.write("            <input type=\"hidden\" name=\"opcao\" value=\"");
+      out.print( opcao);
+      out.write("\">\n");
       out.write("        </form>\n");
-      out.write("    \n");
-      out.write("    \n");
-      out.write("    \n");
+      out.write("        <br> ");
+      out.print( (mensagem == null) ? "" : mensagem);
+      out.write("\n");
+      out.write("\n");
+      out.write("        ");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+
+DAOCidade  objDAOCidade = new DAOCidade();
+List<Cidade> listaCidade = objDAOCidade.listarCidade();
+
+
+      out.write("\n");
+      out.write("\n");
+      out.write("<table border=\"1\">\n");
+      out.write("    <thead>\n");
+      out.write("        <tr>\n");
+      out.write("            <th>CODIGO</th>\n");
+      out.write("            <th>NOME</th>\n");
+      out.write("            <th>UF</th>\n");
+      out.write("            <th>ALTERAR</th>\n");
+      out.write("            <th>EXCLUIR</th>\n");
+      out.write("        </tr>\n");
+      out.write("    </thead>\n");
+      out.write("    <tbody>\n");
+      out.write("        ");
+ for(Cidade cidade :listaCidade){ 
+      out.write("\n");
+      out.write("        <tr>\n");
+      out.write("            <td>");
+      out.print( cidade.getCodigoCidade() );
+      out.write("</td>\n");
+      out.write("            <td>");
+      out.print( cidade.getNomeCidade() );
+      out.write("</td>\n");
+      out.write("            <td>");
+      out.print( cidade.getUfCifade() );
+      out.write("</td>\n");
+      out.write("            <td><a href=\"CadastroCidade.jsp?opcao=alterar&codigoCidade=");
+      out.print( cidade.getCodigoCidade() );
+      out.write("&nomeCidade=");
+      out.print( cidade.getNomeCidade() );
+      out.write("&ufCidade=");
+      out.print( cidade.getUfCifade() );
+      out.write("\">alterar</a> </td>\n");
+      out.write("            <td><a href=\"CadastroCidade.jsp?opcao=excluir&codigoCidade=");
+      out.print( cidade.getCodigoCidade() );
+      out.write("&nomeCidade=");
+      out.print( cidade.getNomeCidade() );
+      out.write("&ufCidade=");
+      out.print( cidade.getUfCifade() );
+      out.write("\">excluir</a> </td>\n");
+      out.write("        </tr>\n");
+      out.write("        ");
+ } 
+      out.write("\n");
+      out.write("    </tbody>\n");
+      out.write("</table>");
+      out.write("\n");
+      out.write("\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

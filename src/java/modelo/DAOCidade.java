@@ -57,5 +57,40 @@ public class DAOCidade {
         }
         return mensagem;
     }
+    public String alterarCidade(Cidade objCidade){
+        String sql = "update cidade set nome=?, uf=? where codigo=?";
+        try{
+            PreparedStatement pst = Conexao.getPreparedStatement(sql);
+            pst.setString(1, objCidade.getNomeCidade());
+            pst.setString(2, objCidade.getUfCifade());
+            pst.setInt(3, objCidade.getCodigoCidade());
+            if(pst.executeUpdate()>0){
+                mensagem = "Cidade alterada com sucesso!";
+            }else{
+                mensagem = "Cidade não alterada!";
+            }
+        }catch(SQLException ex){
+            mensagem="Erro de SQL no método alterarCidade do DAOCidade"
+                    +ex.getMessage()+"\n Comando SQL: "+sql;
+        }
+        return mensagem;
+    }
+    
+    public String excluirCidade(Cidade objCidade){
+        String sql = "delete from cidade where codigo=?";
+        try{
+            PreparedStatement pst = Conexao.getPreparedStatement(sql);
+           pst.setInt(1, objCidade.getCodigoCidade());
+            if(pst.executeUpdate()>0){
+                mensagem = "Cidade excluída com sucesso!";
+            }else{
+                mensagem = "Cidade não excluída!";
+            }
+        }catch(SQLException ex){
+            mensagem="Erro de SQL no método excluirCidade do DAOCidade"
+                    +ex.getMessage()+"\n Comando SQL: "+sql;
+        }
+        return mensagem;
+    }
     
 }
