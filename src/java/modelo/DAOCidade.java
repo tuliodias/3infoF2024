@@ -30,6 +30,7 @@ public class DAOCidade {
                 objCidade.setNomeCidade(rs.getString("nome"));
                 objCidade.setUfCifade(rs.getString("uf"));
                 listaCidade.add(objCidade);
+                
              }
         }catch(SQLException ex){
             System.out.println("Erro no listaCidade do DAOCidade"+ex);
